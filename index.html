@@ -5,10 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+<style>
+.dark-mode {
+    background-color: black;
+    color: white;
+  }
+</style>
 </head>
 <body>
 
 <script>
+function darkMode() {
+   var element = document.body;
+   element.classList.toggle("dark-mode");
+}
 var letters = ["C","C#/D&#9837;","D","D#/E&#9837;","E","F","F#/G&#9837;","G","G#/A&#9837;","A","A#/B&#9837;","B"];
 var solfege = ["Do","Do#/Re&#9837;","Re","Re#/Mi&#9837;","Mi","Fa","Fa#/Sol&#9837;","Sol","Sol#/La&#9837;","La","La#/Si&#9837;","Si"];
 var notes = letters;
@@ -82,19 +93,20 @@ handleBemol = function(note) {
 
 </script>
 <div class="container">
-	<div class="page-header">
-		<h1>Dipi's note transposer</h1>
+    <div class="page-header">
+        <h1>Dipi's note transposer</h1>
 	</div>
 	<div class="row">
 	    <div class="col-xs-5" >
 			<button id="lower" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
 			<span id="deltaTone">+1</span>
 			<button id="upper" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
-	    </div>
+            <button type="button" class="btn btn-default" onclick="darkMode()">Toggle dark mode</button>
+        </div>
 	    <div class="col-xs-7">
 			<div id="notation" class="pull-right btn-group">
 				<button type="button" class="btn btn-default active">Letters</button>
-				<button type="button" class="btn btn-default">Solfege</button>
+                <button type="button" class="btn btn-default">Solfege</button>
 			</div>
 	    </div>
 	</div>
