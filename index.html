@@ -3,8 +3,8 @@
 <head>
 <title>Dipi's Note Transposer</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <style>
 .dark-mode {
@@ -12,6 +12,7 @@
     color: white;
   }
 </style>
+
 </head>
 <body>
 
@@ -61,13 +62,13 @@ addTone = function() {
 	var tone = $("#tone").clone().attr("id","tone" + tones);
 	$("#tones").append(tone);
 	tone.show(animSpeed);
-	tone.children("#selection").children("select").change(function() {
+	tone.find("select").change(function() {
 	    $(this).parent().siblings("div.result").children("#res").html(transpose($(this).children("option:selected").text(), transport));
 	});
-	tone.children(".col-xs-2").children(".removeTone").click(function() {
-	    $(this).parent().parent().hide(animSpeed, function() {$(this).remove()});
+	tone.find(".removeTone").click(function() {
+	    $(this).parent().parent().hide(animSpeed, function() {$(this).parent().remove()});
 	});
-	tone.children(".result").children("#res").html(transpose(tone.children("#selection").children("select").children("option:selected").text(), transport))
+	tone.children().children(".result").children("#res").html(transpose(tone.find("option:selected").text(), transport))
 	tones ++;
 };
 
@@ -81,8 +82,8 @@ transpose = function(startingTone, offset) {
 
 refresh = function() {
 	$("#deltaTone").html(transport < 0 ? transport : "+" + transport);
-	$("#tones").children().children(".result").children(".note").each(function() {
-	    $(this).html(transpose($(this).parent().siblings("#selection").children("select").children("option:selected").text(), transport));
+	$("#tones").find(".result").find(".note").each(function() {
+	    $(this).html(transpose($(this).parent().siblings("#selection").find("option:selected").text(), transport));
 	});
 };
 
@@ -93,49 +94,38 @@ handleBemol = function(note) {
 
 </script>
 <div class="container">
-    <div class="page-header">
-        <h1>Dipi's note transposer</h1>
-	</div>
-	<div class="row">
-	    <div class="col-xs-5" >
-			<button id="lower" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span></button>
-			<span id="deltaTone">+1</span>
-			<button id="upper" type="button" class="btn btn-default"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span></button>
-            <button type="button" class="btn btn-default" onclick="darkMode()">Toggle dark mode</button>
-        </div>
-	    <div class="col-xs-7">
-			<div id="notation" class="pull-right btn-group">
-				<button type="button" class="btn btn-default active">Letters</button>
-                <button type="button" class="btn btn-default">Solfege</button>
+	<h1 class="pt-5">Dipi's note transposer</h1>
+	<hr class="text-muted">
+	<div class="d-inline">
+	    <div class="d-inline" >
+			<button id="lower" type="button" class="btn btn-outline-dark">◄</button>
+			<span id="deltaTone" class="p-2">+1</span>
+			<button id="upper" type="button" class="btn btn-outline-dark">►</span></button>
+	    </div>
+	    <div class="d-inline float-end">
+			<div id="notation" class="btn-group">
+				<button type="button" class="btn btn-outline-dark active">Letters</button>
+				<button type="button" class="btn btn-outline-dark">Solfege</button>
 			</div>
 	    </div>
 	</div>
-    <hr>
-	<div id="tones" class="container-fluid" >
-	    <div id="tone" style="display:none" class="row list-group-item" >
-			<div class="col-xs-5" id="selection" >
-				<select id="noteSelect" class="form-control" >
-
+	<hr class="text-muted">
+	<div id="tones" class="list-group"></div>
+	<div id="tone" style="display:none" class="list-group-item">
+		<div class="row">
+			<div class="col-5" id="selection" >
+				<select id="noteSelect" class="form-select" >
 				</select>
 			</div>
-	    	<div class="col-xs-5 result">
-                <span class="glyphicon glyphicon-arrow-right" ></span>
-		        <span id="res" class="note h3">RES</span>
-	    	</div>
-			<div class="col-xs-2">
-				<button class="btn btn-default removeTone" >
-				<span class="glyphicon glyphicon-remove-sign" aria-hidden="true"></span>
-				</button>
-	    	</div>
-	    </div>
+			<div class="col-7 result">
+				➤ <span id="res" class="note h3">RES</span>
+				<button class=" float-end btn btn-outline-danger removeTone" >✖</button>
+			</div>
+		</div>
 	</div>
 	<br>
-	<button id="addTone" type=button class="btn btn-default">
-	<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add note
-	</button>
+	<button id="addTone" type=button class="btn btn-outline-dark">✚ Add note</button>
 </div>
-
-
 
 </body>
 </html>
